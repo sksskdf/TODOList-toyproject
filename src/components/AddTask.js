@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const AddTask = ({ socket }) => {
 	const [task, setTask] = useState("");
-	
-	const handleAddTodo = e => {
-		e.preventDefault();
-		console.log({ task });
-		setTask('');
-	};
 
+	const handleAddTodo = (e) => {
+		e.preventDefault();
+		socket.emit("createTask", { task });
+		setTask("");
+	};
 	return (
 		<form className='form__input' onSubmit={handleAddTodo}>
 			<label htmlFor='task'>Add Todo</label>
@@ -19,7 +18,7 @@ const AddTask = ({ socket }) => {
 				value={task}
 				className='input'
 				required
-				onChange={e => setTask(e.target.value)}
+				onChange={(e) => setTask(e.target.value)}
 			/>
 			<button className='addTodoBtn'>ADD TODO</button>
 		</form>
